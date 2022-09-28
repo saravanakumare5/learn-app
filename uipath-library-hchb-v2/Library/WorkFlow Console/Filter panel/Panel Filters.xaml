@@ -1,0 +1,1334 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Panel_Filters" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:eue="clr-namespace:Element5_Core.Utils.Exception;assembly=Element5.Core" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="If 'True' Throws exception in case of any filter value not available. If 'False' Continues with applying the next filter value." Name="ContinueOnFailure" Type="InArgument(x:Boolean)" />
+    <x:Property sap2010:Annotation.AnnotationText="Format (Note: Does not require all fields. Pass the required filters)&#xA;&#xA;[{&quot;name&quot;:&quot;Submission Type&quot;,&quot;type&quot;:&quot;radio&quot;,&quot;value&quot;:&quot;PDGM&quot;},{&quot;name&quot;:&quot;Search By&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;MR No.&quot;},{&quot;name&quot;:&quot;Search For&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;1234&quot;},{&quot;name&quot;:&quot;F2F Status&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;value&quot;:[{&quot;Incomplete&quot;:true,&quot;Completed&quot;:true}]},{&quot;name&quot;:&quot;Plan of Care Status&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;value&quot;:[{&quot;Unsigned&quot;:true,&quot;Signed&quot;:true}]},{&quot;name&quot;:&quot;Claim Status&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;value&quot;:[{&quot;Unbilled&quot;:true,&quot;Billed&quot;:true}]},{&quot;name&quot;:&quot;Period Begin Start&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;12/09/2020&quot;},{&quot;name&quot;:&quot;Period Begin End&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;&quot;},{&quot;name&quot;:&quot;Period End Start&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;01/10/2021&quot;},{&quot;name&quot;:&quot;Period End&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;value&quot;:&quot;01/11/2021&quot;}]" Name="Criteria" Type="InArgument(njl:JToken)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1111,2713</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Panel_Filters_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>UiPath.CV</x:String>
+      <x:String>UiPath.Shared.ObjectLibrary</x:String>
+      <x:String>UiPath.Vision.OCR</x:String>
+      <x:String>UiPath.OCR.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>Element5_Core.Utils.Exception</x:String>
+      <x:String>UiPath.CV.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.OCR.Contracts.Activities</x:String>
+      <x:String>UiPath.Core.Activities.OCR.Engines</x:String>
+      <x:String>UiPath.CV.Activities.Interfaces</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Vision.Core</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>Element5.Core</AssemblyReference>
+      <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.GSuite.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OmniPage.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.GSuite.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.OmniPage.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Panel filter click the nearest icon (either dropdown or search icon) and searches for filter param and select it from the dropdown and multi select popup. If no parameter or duplication are available then it throws an exception." DisplayName="Panel Filter" sap:VirtualizedContainerService.HintSize="699,2648" sap2010:WorkflowViewState.IdRef="Sequence_19">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="657,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Panel Filter Module Started&quot;]" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File Lazy Init Library" sap:VirtualizedContainerService.HintSize="657,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Lazy Init Library.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="ConfigNamespace">
+          <Literal x:TypeArguments="x:String">E5.M.HCHB</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="ConfigYAMLPath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Path.Combine(IO.Directory.GetCurrentDirectory, &quot;data\Config.yml&quot;)" />
+        </InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <TryCatch DisplayName="Try Catch for Panel Filters" sap:VirtualizedContainerService.HintSize="657,2100" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence DisplayName="Panel Filter sequence" sap:VirtualizedContainerService.HintSize="619,1851" sap2010:WorkflowViewState.IdRef="Sequence_17">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch sap2010:Annotation.AnnotationText="Validate the landing page to select filter params" DisplayName="Landing Page validation" sap:VirtualizedContainerService.HintSize="577,93" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch.Try>
+              <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window for the  landing page validation" sap:VirtualizedContainerService.HintSize="434,191" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='wfica32.exe' cls='Transparent Windows Client' title='Workflow *' /&gt;">
+                <ui:WindowScope.Body>
+                  <ActivityAction x:TypeArguments="x:Object">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="200,83" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:WindowScope.Body>
+              </ui:WindowScope>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,135" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:Boolean" Name="MultiSelectPopupExist" />
+                      <Variable x:TypeArguments="x:Boolean" Name="ApplySelectionExist" />
+                      <Variable x:TypeArguments="x:String" Name="Title" />
+                      <Variable x:TypeArguments="x:String" Name="ParamsType" />
+                      <Variable x:TypeArguments="s:String[]" Name="Selection" />
+                      <Variable x:TypeArguments="x:String" Name="SearchBy" />
+                      <Variable x:TypeArguments="x:String" Name="SelectAnchor" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="284,79" sap2010:WorkflowViewState.IdRef="Log_Exception_1" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                    <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="284,132" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_1" MessageCode="REQUIRED_PAGE_NOT_FOUND" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                      <eue:Throw_Business_Exception.ExtraMessage>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                        </InArgument>
+                      </eue:Throw_Business_Exception.ExtraMessage>
+                    </eue:Throw_Business_Exception>
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+          <ui:ForEach x:TypeArguments="njl:JToken" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Deserialize the JObject and select the filter params" DisplayName="For Each - Parameter" sap:VirtualizedContainerService.HintSize="577,1535" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[Criteria]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="njl:JToken">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="njl:JToken" Name="filterparams" />
+                </ActivityAction.Argument>
+                <Sequence sap:VirtualizedContainerService.HintSize="541,1380" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="Title" />
+                    <Variable x:TypeArguments="x:String" Name="ParamsType" />
+                    <Variable x:TypeArguments="s:String[]" Name="Selection" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="499,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[Title]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[filterparams("name").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[ParamsType]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[filterparams("type").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="s:String[]">[Selection]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="s:String[]">[filterParams.Value(Of JArray)("value").ToObject(Of String())()]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:MultipleAssign>
+                  <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Choose the flow (Dropdown or Search) corressponding to the type Property in the Argument&#xA;1) Default - if the type property is neither dropdown nor Search&#xA;2)Dropdown-if the type property from the criteria arument is dropdown&#xA;3)Search-if the type property from the criteria arument is Search" DisplayName="Switch" Expression="[ParamsType.ToLower]" sap:VirtualizedContainerService.HintSize="499,1088" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+                    <Switch.Default>
+                      <Sequence DisplayName="Default case" sap:VirtualizedContainerService.HintSize="326,315" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="284,51" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Invalid filter param&quot;]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:LogMessage>
+                        <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="284,132" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_6" MessageCode="INVALID_PARAMETER_TYPE" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                          <eue:Throw_Business_Exception.ExtraMessage>
+                            <InArgument x:TypeArguments="x:String">
+                              <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                            </InArgument>
+                          </eue:Throw_Business_Exception.ExtraMessage>
+                        </eue:Throw_Business_Exception>
+                      </Sequence>
+                    </Switch.Default>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <TryCatch x:Key="dropdown" DisplayName="TryCatch - Dropdown" sap:VirtualizedContainerService.HintSize="588,1797" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <TryCatch.Try>
+                        <Sequence sap2010:Annotation.AnnotationText="Sequence for Applying the filters for Dropdown &#xA;" sap:VirtualizedContainerService.HintSize="550,1570" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" CvMethod="ElementDetection, OCR" DesignTimeCacheId="ecebaa86-d746-4962-b90d-910895dea63f" DisplayName="CV Screen Scope - WorkFlow - \\Remote" sap:VirtualizedContainerService.HintSize="508,504" sap2010:WorkflowViewState.IdRef="CVScope_1" Version="V2">
+                            <p:CVScope.Body>
+                              <ActivityAction x:TypeArguments="x:Object">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                  <p:CvClickWithDescriptor DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" sap2010:Annotation.AnnotationText="Click the corresponding dropdown arrow button  according to the name property in Criteria JObject argument" ClickType="CLICK_SINGLE" DelayMS="2000" Descriptor="[&quot;Target: ArrowButton (254,131,18,19)&quot; +&#xA;&quot;Anchor: Text '&quot; + Title + &quot;:' (42,114,66,10)&quot;]" DesignTimeCacheId="ecebaa86-d746-4962-b90d-910895dea63f" DesignTimeScaleFactor="1" DisplayName="CV Click -Dropdown Arrow" sap:VirtualizedContainerService.HintSize="400,193" sap2010:WorkflowViewState.IdRef="CvClickWithDescriptor_1" InformativeScreenshot="fe61d86cae08dc699c690994a3501c57" KeyModifiers="None" MouseButton="BTN_LEFT" Version="V2">
+                                    <p:CvClickWithDescriptor.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </p:CvClickWithDescriptor.CursorPosition>
+                                    <p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                      <uc:CvDescriptor>
+                                        <uc:CvDescriptor.Anchors>
+                                          <x:Array Type="uc:CvElementDescriptor">
+                                            <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="42, 114, 66, 10" ElementType="Text" Text="Branches:" />
+                                          </x:Array>
+                                        </uc:CvDescriptor.Anchors>
+                                        <uc:CvDescriptor.Target>
+                                          <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="254, 131, 18, 19" ElementType="ArrowButton" />
+                                        </uc:CvDescriptor.Target>
+                                      </uc:CvDescriptor>
+                                    </p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                    <p:CvClickWithDescriptor.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="451f3b29-37d7-4746-a43c-bd7e0be5163b">
+                                        <ui:Target.TimeoutMS>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:Target.TimeoutMS>
+                                        <ui:Target.WaitForReady>
+                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                        </ui:Target.WaitForReady>
+                                      </ui:Target>
+                                    </p:CvClickWithDescriptor.Target>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </p:CvClickWithDescriptor>
+                                </Sequence>
+                              </ActivityAction>
+                            </p:CVScope.Body>
+                            <p:CVScope.DesignTimeCache>
+                              <uc:CVCache CvUiElements="{x:Null}" OcrTexts="{x:Null}" />
+                            </p:CVScope.DesignTimeCache>
+                            <p:CVScope.DesignTimeCacheContainer>
+                              <uc:CvCacheContainer>
+                                <uc:CvCacheContainer.Caches>
+                                  <scg:List x:TypeArguments="uc:CVCache" Capacity="1">
+                                    <uc:CVCache DisplayName="Main Screen" Id="ecebaa86-d746-4962-b90d-910895dea63f" InformativeScreenshot="5cb0f3060392546c2f49a84cd4913ada" LogicalPosition="131, -28" OcrText="Service Lines:&#xA;Branches:&#xA;(ALL)&#xA;Teams:&#xA;(ALL)&#xA;Patients:&#xA;(ALL)&#xA;Events:&#xA;(ALL)&#xA;Stages:&#xA;(ALL)&#xA;Patient Status:&#xA;(ALL)&#xA;Workers:&#xA;(ALL)&#xA;AR Groups:&#xA;(ALL) Patient&#xA;Drag a column header here to group by that column.&#xA;• Res nsible Pas itin -E Task&#xA;Lodd Close" Position="131, -28">
+                                      <uc:CVCache.CvUiElements>
+                                        <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="128">
+                                          <uc:CvElementInfo Category="Icon" Region="232, 131, 19, 19" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="306, 552, 18, 18" />
+                                          <uc:CvElementInfo Category="Icon" Region="233, 192, 18, 18" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="989, 549, 18, 18" />
+                                          <uc:CvElementInfo Category="Icon" Region="990, 137, 15, 14" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="992, 58, 14, 16" />
+                                          <uc:CvElementInfo Category="Icon" Region="307, 137, 17, 17" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="978, 60, 11, 13" />
+                                          <uc:CvElementInfo Category="Button" Region="309, 40, 144, 38" />
+                                          <uc:CvElementInfo Category="Icon" Region="975, 115, 13, 14" />
+                                          <uc:CvElementInfo Category="Icon" Region="254, 553, 19, 17" />
+                                          <uc:CvElementInfo Category="Icon" Region="253, 252, 21, 20" />
+                                          <uc:CvElementInfo Category="Icon" Region="327, 136, 17, 17" />
+                                          <uc:CvElementInfo Category="Icon" Region="539, 137, 16, 16" />
+                                          <uc:CvElementInfo Category="Icon" Region="989, 114, 17, 17" />
+                                          <uc:CvElementInfo Category="Button" Region="887, 589, 120, 37" />
+                                          <uc:CvElementInfo Category="Button" Region="39, 488, 234, 24" />
+                                          <uc:CvElementInfo Category="Icon" Region="255, 492, 17, 16" />
+                                          <uc:CvElementInfo Category="InputBox" Region="322, 553, 158, 17" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="513, 116, 13, 14" />
+                                          <uc:CvElementInfo Category="Icon" Region="740, 137, 15, 14" />
+                                          <uc:CvElementInfo Category="Button" Region="253, 492, 19, 18" />
+                                          <uc:CvElementInfo Category="Icon" Region="253, 372, 21, 18" />
+                                          <uc:CvElementInfo Category="Button" Region="457, 44, 163, 32" />
+                                          <uc:CvElementInfo Category="InputBox" Region="43, 307, 225, 24" />
+                                          <uc:CvElementInfo Category="InputBox" Region="40, 546, 230, 25" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="724, 115, 16, 16" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="1, 31, 16, 16" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="1, 31, 17, 15" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="39, 305, 234, 26" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="1, 30, 17, 17" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="41, 248, 232, 25" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="38, 589, 228, 35" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="522, 116, 15, 16" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="513, 116, 13, 14" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="44, 367, 229, 24" />
+                                          <uc:CvElementInfo Category="CloseButton" Confidence="Runtime" Region="2, 31, 16, 16" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="43, 186, 230, 28" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="538, 136, 19, 18" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="253, 372, 21, 18" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="253, 252, 22, 20" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="989, 114, 18, 17" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="327, 136, 17, 17" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="740, 137, 16, 15" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="253, 311, 21, 19" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="327, 136, 17, 17" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="509, 115, 25, 16" />
+                                          <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="992, 58, 12, 16" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="974, 115, 15, 15" />
+                                          <uc:CvElementInfo Category="MaximizeButton" Confidence="Runtime" Region="975, 115, 14, 15" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="974, 116, 13, 15" />
+                                          <uc:CvElementInfo Category="InputBox" Confidence="Runtime" Region="332, 134, 203, 21" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="42, 72, 36, 19" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="523, 116, 14, 15" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="50, 128, 212, 25" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="770, 47, 126, 23" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="724, 116, 16, 16" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="308, 136, 17, 17" />
+                                          <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="635, 47, 123, 24" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="989, 114, 17, 17" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="998, 634, 7, 7" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="253, 311, 21, 20" />
+                                          <uc:CvElementInfo Category="InputBox" Region="39, 428, 235, 25" />
+                                          <uc:CvElementInfo Category="InputBox" Region="42, 68, 234, 25" />
+                                          <uc:CvElementInfo Category="InputBox" Region="45, 125, 228, 28" />
+                                          <uc:CvElementInfo Category="InputBox" Region="34, 185, 240, 29" />
+                                          <uc:CvElementInfo Category="InputBox" Region="45, 248, 229, 25" />
+                                          <uc:CvElementInfo Category="InputBox" Region="35, 488, 239, 24" />
+                                          <uc:CvElementInfo Category="InputBox" Region="44, 368, 231, 23" />
+                                          <uc:CvElementInfo Category="InputBox" Confidence="Runtime" Region="530, 135, 450, 20" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="253, 430, 21, 23" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="252, 71, 18, 21" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="254, 191, 17, 19" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="254, 131, 18, 19" />
+                                          <uc:CvElementInfo Category="ArrowButton" Region="253, 373, 21, 18" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="253, 492, 19, 18" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="252, 252, 22, 20" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="539, 136, 17, 17" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="38, 247, 231, 26" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="739, 136, 17, 15" />
+                                          <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="39, 489, 231, 23" />
+                                        </scg:List>
+                                      </uc:CVCache.CvUiElements>
+                                      <uc:CVCache.OcrTexts>
+                                        <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="64">
+                                          <uc:OcrTextInfo Region="41, 54, 51, 10" Text="Service" />
+                                          <uc:OcrTextInfo Region="96, 54, 38, 10" Text="Lines:" />
+                                          <uc:OcrTextInfo Region="42, 114, 66, 10" Text="Branches:" />
+                                          <uc:OcrTextInfo Region="46, 137, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="41, 174, 49, 10" Text="Teams:" />
+                                          <uc:OcrTextInfo Region="46, 197, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="42, 234, 58, 10" Text="Patients:" />
+                                          <uc:OcrTextInfo Region="45, 257, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="42, 294, 50, 10" Text="Events:" />
+                                          <uc:OcrTextInfo Region="45, 317, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="41, 354, 51, 13" Text="Stages:" />
+                                          <uc:OcrTextInfo Region="45, 377, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="42, 414, 47, 10" Text="Patient" />
+                                          <uc:OcrTextInfo Region="92, 414, 45, 10" Text="Status:" />
+                                          <uc:OcrTextInfo Region="46, 437, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="41, 474, 59, 10" Text="Workers:" />
+                                          <uc:OcrTextInfo Region="45, 497, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="41, 534, 20, 10" Text="AR" />
+                                          <uc:OcrTextInfo Region="66, 534, 51, 13" Text="Groups:" />
+                                          <uc:OcrTextInfo Region="45, 557, 30, 13" Text="(ALL)" />
+                                          <uc:OcrTextInfo Region="318, 54, 40, 10" Text="Patient" />
+                                          <uc:OcrTextInfo Region="317, 89, 26, 13" Text="Drag" />
+                                          <uc:OcrTextInfo Region="347, 92, 7, 7" Text="a" />
+                                          <uc:OcrTextInfo Region="359, 89, 42, 10" Text="column" />
+                                          <uc:OcrTextInfo Region="406, 89, 39, 10" Text="header" />
+                                          <uc:OcrTextInfo Region="449, 89, 24, 10" Text="here" />
+                                          <uc:OcrTextInfo Region="478, 90, 11, 9" Text="to" />
+                                          <uc:OcrTextInfo Region="493, 92, 32, 10" Text="group" />
+                                          <uc:OcrTextInfo Region="530, 89, 13, 13" Text="by" />
+                                          <uc:OcrTextInfo Region="548, 89, 22, 10" Text="that" />
+                                          <uc:OcrTextInfo Region="574, 89, 45, 10" Text="column." />
+                                          <uc:OcrTextInfo Region="516, 121, 7, 4" Text="•" />
+                                          <uc:OcrTextInfo Region="540, 118, 24, 10" Text="Res" />
+                                          <uc:OcrTextInfo Region="582, 118, 39, 10" Text="nsible" />
+                                          <uc:OcrTextInfo Region="625, 118, 24, 10" Text="Pas" />
+                                          <uc:OcrTextInfo Region="651, 118, 25, 10" Text="itin" />
+                                          <uc:OcrTextInfo Region="726, 120, 9, 7" Text="-E" />
+                                          <uc:OcrTextInfo Region="739, 118, 33, 10" Text="Task" />
+                                          <uc:OcrTextInfo Region="142, 607, 31, 10" Text="Lodd" />
+                                          <uc:OcrTextInfo Region="929, 607, 38, 10" Text="Close" />
+                                        </scg:List>
+                                      </uc:CVCache.OcrTexts>
+                                    </uc:CVCache>
+                                  </scg:List>
+                                </uc:CvCacheContainer.Caches>
+                              </uc:CvCacheContainer>
+                            </p:CVScope.DesignTimeCacheContainer>
+                            <p:CVScope.OCREngine>
+                              <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                                <ActivityFunc.Argument>
+                                  <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                                </ActivityFunc.Argument>
+                                <ui:MicrosoftOCR FilterRegion="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Microsoft OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_1" Image="[Image]" />
+                              </ActivityFunc>
+                            </p:CVScope.OCREngine>
+                            <p:CVScope.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c56539f6-89ba-4010-8812-733608b4b597" InformativeScreenshot="28641772b7e2b0bcf9dd5267e42cde4c" Selector="&lt;wnd app='wfica32.exe' cls='Transparent Windows Client' title='Workflow - \\Remote' /&gt;" WaitForReady="INTERACTIVE">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                              </ui:Target>
+                            </p:CVScope.Target>
+                            <p:CVScope.UseLocalServer>
+                              <InArgument x:TypeArguments="x:Boolean" />
+                            </p:CVScope.UseLocalServer>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </p:CVScope>
+                          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Iterating for select all checkbox in the dropdown Corresponding to the Value Jproperty from Criteria JObject Argument" DisplayName="For Each params" sap:VirtualizedContainerService.HintSize="508,892" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Selection]">
+                            <ui:ForEach.Body>
+                              <ActivityAction x:TypeArguments="x:String">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="x:String" Name="param" />
+                                </ActivityAction.Argument>
+                                <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="472,716" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <TryCatch.Try>
+                                    <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" CvMethod="ElementDetection, OCR" DesignTimeCacheId="41433722-de15-4649-8432-7ac4befa8927" DisplayName="CV Screen Scope - Multiple select" sap:VirtualizedContainerService.HintSize="434,489" sap2010:WorkflowViewState.IdRef="CVScope_2" Version="V2">
+                                      <p:CVScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                            <p:CvClickWithDescriptor DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" sap2010:Annotation.AnnotationText="Click Select checkbox present in corresponding dropdown" ClickType="CLICK_SINGLE" DelayMS="3000" Descriptor="[&quot;Target: CheckBox (1,43,14,15)&quot; +&#xA;&quot;Anchor: Text '&quot;+param+&quot;' (20,46,93,12)&quot;]" DesignTimeCacheId="41433722-de15-4649-8432-7ac4befa8927" DesignTimeScaleFactor="1" DisplayName="CV Click - checkbox" sap:VirtualizedContainerService.HintSize="400,178" sap2010:WorkflowViewState.IdRef="CvClickWithDescriptor_2" InformativeScreenshot="5d90f89fc272e71208e3d0058715566f" KeyModifiers="None" MouseButton="BTN_LEFT" Version="V2">
+                                              <p:CvClickWithDescriptor.CursorPosition>
+                                                <ui:CursorPosition Position="Center">
+                                                  <ui:CursorPosition.OffsetX>
+                                                    <InArgument x:TypeArguments="x:Int32" />
+                                                  </ui:CursorPosition.OffsetX>
+                                                  <ui:CursorPosition.OffsetY>
+                                                    <InArgument x:TypeArguments="x:Int32" />
+                                                  </ui:CursorPosition.OffsetY>
+                                                </ui:CursorPosition>
+                                              </p:CvClickWithDescriptor.CursorPosition>
+                                              <p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                                <uc:CvDescriptor>
+                                                  <uc:CvDescriptor.Anchors>
+                                                    <x:Array Type="uc:CvElementDescriptor">
+                                                      <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="20, 46, 93, 12" ElementType="Text" Text="HOME HEALTH" />
+                                                    </x:Array>
+                                                  </uc:CvDescriptor.Anchors>
+                                                  <uc:CvDescriptor.Target>
+                                                    <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="1, 43, 14, 15" ElementType="CheckBox" />
+                                                  </uc:CvDescriptor.Target>
+                                                </uc:CvDescriptor>
+                                              </p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                              <p:CvClickWithDescriptor.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="ce4216d7-bef6-4a6a-b6b8-501d37867a9c">
+                                                  <ui:Target.TimeoutMS>
+                                                    <InArgument x:TypeArguments="x:Int32" />
+                                                  </ui:Target.TimeoutMS>
+                                                  <ui:Target.WaitForReady>
+                                                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                                                  </ui:Target.WaitForReady>
+                                                </ui:Target>
+                                              </p:CvClickWithDescriptor.Target>
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                            </p:CvClickWithDescriptor>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </p:CVScope.Body>
+                                      <p:CVScope.DesignTimeCache>
+                                        <uc:CVCache CvUiElements="{x:Null}" OcrTexts="{x:Null}" />
+                                      </p:CVScope.DesignTimeCache>
+                                      <p:CVScope.DesignTimeCacheContainer>
+                                        <uc:CvCacheContainer>
+                                          <uc:CvCacheContainer.Caches>
+                                            <scg:List x:TypeArguments="uc:CVCache" Capacity="1">
+                                              <uc:CVCache DisplayName="Main Screen" Id="41433722-de15-4649-8432-7ac4befa8927" InformativeScreenshot="26572cc8180f67adabe471ca08949e7c" LogicalPosition="131, -28" OcrText="Done&#xA;E (Select All)&#xA;E HOME HEALTH&#xA;HOMEMED&#xA;a HOSPICE&#xA;5 IN HOME RECOVERY&#xA;E JOURNEY PROGRAM&#xA;a PALLIATIVE&#xA;PRIVATE DUTY" Position="131, -28">
+                                                <uc:CVCache.CvUiElements>
+                                                  <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="8">
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 25, 14, 14" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 139, 15, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 82, 14, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 43, 14, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 120, 15, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 62, 15, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 100, 15, 15" />
+                                                    <uc:CvElementInfo Category="CheckBox" Region="1, 158, 15, 15" />
+                                                  </scg:List>
+                                                </uc:CVCache.CvUiElements>
+                                                <uc:CVCache.OcrTexts>
+                                                  <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="32">
+                                                    <uc:OcrTextInfo Region="200, 6, 30, 12" Text="Done" />
+                                                    <uc:OcrTextInfo Region="1, 27, 14, 14" Text="E" />
+                                                    <uc:OcrTextInfo Region="20, 28, 40, 13" Text="(Select" />
+                                                    <uc:OcrTextInfo Region="63, 27, 20, 14" Text="All)" />
+                                                    <uc:OcrTextInfo Region="1, 46, 14, 14" Text="E" />
+                                                    <uc:OcrTextInfo Region="20, 46, 38, 12" Text="HOME" />
+                                                    <uc:OcrTextInfo Region="62, 46, 51, 11" Text="HEALTH" />
+                                                    <uc:OcrTextInfo Region="20, 65, 68, 12" Text="HOMEMED" />
+                                                    <uc:OcrTextInfo Region="3, 86, 11, 10" Text="a" />
+                                                    <uc:OcrTextInfo Region="21, 84, 57, 12" Text="HOSPICE" />
+                                                    <uc:OcrTextInfo Region="3, 105, 11, 10" Text="5" />
+                                                    <uc:OcrTextInfo Region="21, 104, 12, 10" Text="IN" />
+                                                    <uc:OcrTextInfo Region="37, 103, 37, 11" Text="HOME" />
+                                                    <uc:OcrTextInfo Region="79, 103, 72, 11" Text="RECOVERY" />
+                                                    <uc:OcrTextInfo Region="2, 122, 14, 14" Text="E" />
+                                                    <uc:OcrTextInfo Region="20, 122, 62, 12" Text="JOURNEY" />
+                                                    <uc:OcrTextInfo Region="86, 122, 66, 11" Text="PROGRAM" />
+                                                    <uc:OcrTextInfo Region="2, 141, 14, 14" Text="a" />
+                                                    <uc:OcrTextInfo Region="21, 141, 74, 12" Text="PALLIATIVE" />
+                                                    <uc:OcrTextInfo Region="21, 160, 56, 11" Text="PRIVATE" />
+                                                    <uc:OcrTextInfo Region="81, 160, 35, 11" Text="DUTY" />
+                                                  </scg:List>
+                                                </uc:CVCache.OcrTexts>
+                                              </uc:CVCache>
+                                            </scg:List>
+                                          </uc:CvCacheContainer.Caches>
+                                        </uc:CvCacheContainer>
+                                      </p:CVScope.DesignTimeCacheContainer>
+                                      <p:CVScope.OCREngine>
+                                        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                                          <ActivityFunc.Argument>
+                                            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                                          </ActivityFunc.Argument>
+                                          <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_1" Image="[Image]" Profile="Scan" Scale="3" />
+                                        </ActivityFunc>
+                                      </p:CVScope.OCREngine>
+                                      <p:CVScope.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5b8f2bcb-5a2f-4189-957d-a5ab050b0ae1" InformativeScreenshot="c3452cf4bd11c487c20ad41d6ce82810" Selector="&lt;wnd app='wfica32.exe' cls='Transparent Windows Client' idx='*' /&gt;" WaitForReady="INTERACTIVE">
+                                          <ui:Target.TimeoutMS>
+                                            <InArgument x:TypeArguments="x:Int32" />
+                                          </ui:Target.TimeoutMS>
+                                        </ui:Target>
+                                      </p:CVScope.Target>
+                                      <p:CVScope.UseLocalServer>
+                                        <InArgument x:TypeArguments="x:Boolean" />
+                                      </p:CVScope.UseLocalServer>
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                    </p:CVScope>
+                                  </TryCatch.Try>
+                                  <TryCatch.Catches>
+                                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="438,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ActivityAction x:TypeArguments="s:Exception">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Exception handling" sap:VirtualizedContainerService.HintSize="376,66" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[param + &quot; is unavailable to select in &quot; + Title]">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                          </ui:LogMessage>
+                                          <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_2" MessageCode="NO_DATA_AVAILABLE_TO_SELECT" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                                            <eue:Throw_Business_Exception.ExtraMessage>
+                                              <InArgument x:TypeArguments="x:String">
+                                                <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                                              </InArgument>
+                                            </eue:Throw_Business_Exception.ExtraMessage>
+                                          </eue:Throw_Business_Exception>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </Catch>
+                                  </TryCatch.Catches>
+                                </TryCatch>
+                              </ActivityAction>
+                            </ui:ForEach.Body>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:ForEach>
+                        </Sequence>
+                      </TryCatch.Try>
+                      <TryCatch.Catches>
+                        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="554,21" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ActivityAction x:TypeArguments="s:Exception">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="376,66" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Log_Exception_2" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Error in selecting the&quot;+Title+&quot; filter param&quot;]">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </ui:LogMessage>
+                              <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_3" MessageCode="ERROR_IN_SELECT_FILTER_PARAM" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                                <eue:Throw_Business_Exception.ExtraMessage>
+                                  <InArgument x:TypeArguments="x:String">
+                                    <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                                  </InArgument>
+                                </eue:Throw_Business_Exception.ExtraMessage>
+                              </eue:Throw_Business_Exception>
+                            </Sequence>
+                          </ActivityAction>
+                        </Catch>
+                      </TryCatch.Catches>
+                    </TryCatch>
+                    <TryCatch x:Key="search" DisplayName="TryCatch - Search" sap:VirtualizedContainerService.HintSize="459,795" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <TryCatch.Try>
+                        <Sequence sap2010:Annotation.AnnotationText="Sequence for selecting search button " sap:VirtualizedContainerService.HintSize="421,568" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="x:Boolean" Name="ApplySelectionExist" />
+                            <Variable x:TypeArguments="x:Boolean" Name="MultiSelectPopupExist" />
+                            <Variable x:TypeArguments="x:String" Name="SearchBy" />
+                            <Variable x:TypeArguments="x:String" Name="SelectAnchor" />
+                            <Variable x:TypeArguments="x:Boolean" Name="IsDeselect" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="379,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+                            <ui:MultipleAssign.AssignOperations>
+                              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                                  <ui:AssignOperation.To>
+                                    <OutArgument x:TypeArguments="x:String">[SearchBy]</OutArgument>
+                                  </ui:AssignOperation.To>
+                                  <ui:AssignOperation.Value>
+                                    <InArgument x:TypeArguments="x:String">[filterparams("searchby").ToString]</InArgument>
+                                  </ui:AssignOperation.Value>
+                                </ui:AssignOperation>
+                                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                                  <ui:AssignOperation.To>
+                                    <OutArgument x:TypeArguments="x:String">[SelectAnchor]</OutArgument>
+                                  </ui:AssignOperation.To>
+                                  <ui:AssignOperation.Value>
+                                    <InArgument x:TypeArguments="x:String">[filterparams("selectby").ToString]</InArgument>
+                                  </ui:AssignOperation.Value>
+                                </ui:AssignOperation>
+                                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                                  <ui:AssignOperation.To>
+                                    <OutArgument x:TypeArguments="x:Boolean">[IsDeselect]</OutArgument>
+                                  </ui:AssignOperation.To>
+                                  <ui:AssignOperation.Value>
+                                    <InArgument x:TypeArguments="x:Boolean">[JObject.Parse(filterparams.ToString).ContainsKey("Deselect") AndAlso Convert.ToBoolean(filterparams("Deselect").ToString)]</InArgument>
+                                  </ui:AssignOperation.Value>
+                                </ui:AssignOperation>
+                              </scg:List>
+                            </ui:MultipleAssign.AssignOperations>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:MultipleAssign>
+                          <TryCatch DisplayName="Try Catch - click search icon" sap:VirtualizedContainerService.HintSize="379,51" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <TryCatch.Try>
+                              <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" CvMethod="ElementDetection, OCR" DesignTimeCacheId="0cd68153-0bb0-42c2-9a07-8a6831f9d014" DisplayName="CV Screen Scope - Workflow - \\Remote" sap:VirtualizedContainerService.HintSize="434,489" sap2010:WorkflowViewState.IdRef="CVScope_3" Version="V2">
+                                <p:CVScope.Body>
+                                  <ActivityAction x:TypeArguments="x:Object">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+                                    </ActivityAction.Argument>
+                                    <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                      <p:CvClickWithDescriptor DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" sap2010:Annotation.AnnotationText="click the corresponding search Icon button  according to the name property in Criteria JObject argument" ClickType="CLICK_SINGLE" Descriptor="[&quot;Target: Icon (232,131,19,19)&quot; +&#xA;&quot;Anchor: Text '&quot;+Title+&quot;:' (42,114,66,10)&quot;]" DesignTimeCacheId="0cd68153-0bb0-42c2-9a07-8a6831f9d014" DesignTimeScaleFactor="1" DisplayName="CV Click - Icon" sap:VirtualizedContainerService.HintSize="400,178" sap2010:WorkflowViewState.IdRef="CvClickWithDescriptor_3" InformativeScreenshot="38814a27c90fbf0852f8f84dc8f23645" KeyModifiers="None" MouseButton="BTN_LEFT" Version="V2">
+                                        <p:CvClickWithDescriptor.CursorPosition>
+                                          <ui:CursorPosition Position="Center">
+                                            <ui:CursorPosition.OffsetX>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:CursorPosition.OffsetX>
+                                            <ui:CursorPosition.OffsetY>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:CursorPosition.OffsetY>
+                                          </ui:CursorPosition>
+                                        </p:CvClickWithDescriptor.CursorPosition>
+                                        <p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                          <uc:CvDescriptor>
+                                            <uc:CvDescriptor.Anchors>
+                                              <x:Array Type="uc:CvElementDescriptor">
+                                                <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="42, 114, 66, 10" ElementType="Text" Text="Branches:" />
+                                              </x:Array>
+                                            </uc:CvDescriptor.Anchors>
+                                            <uc:CvDescriptor.Target>
+                                              <uc:CvElementDescriptor CellExtraInfo="{x:Null}" DesignTimeArea="232, 131, 19, 19" ElementType="Icon" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhP3ZNNj4IwFEXn//8bggmwkIUmColsICz42sqKDxWDxsBzbmlrOxBnMTObOclNKvQd2pfnB/0i/0T2eDz4aplFWVmW5Ps+rVYrMgxDJgxDatuW75ozk2VZRrZtaxLTNOXadV32sSU02fF4JMdxZA6HA+V5zrLb7aRws9lQVVW86oUm8zyPbYYIgr7vaRxHlvP5zK4phHEc86oXmkz0CCe63W786Yuu62i9XrM96On1euVvJjSZ+Cr6htMsEQQB27PdbqlpGv504u9luMKS7HK5yFZAdr/f+ZsJTRZFkRSi2eiRACLRLyRN0/eyuq7ZHIkCFONayNcB/lYGMJC4glqoxrIsucb4qMxkACfEHKF3EIskScKiylXhokyAOYIYwZVEIFCF4v/6VvaOoiiYaL/f/1wGTqcTyzAMn7+IniS8SejMMqCJAAAAAElFTkSuQmCC" />
+                                            </uc:CvDescriptor.Target>
+                                          </uc:CvDescriptor>
+                                        </p:CvClickWithDescriptor.DesignTimeDescriptor>
+                                        <p:CvClickWithDescriptor.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="3516335c-473e-4da7-8577-dce8b375ad85">
+                                            <ui:Target.TimeoutMS>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:Target.TimeoutMS>
+                                            <ui:Target.WaitForReady>
+                                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                                            </ui:Target.WaitForReady>
+                                          </ui:Target>
+                                        </p:CvClickWithDescriptor.Target>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </p:CvClickWithDescriptor>
+                                    </Sequence>
+                                  </ActivityAction>
+                                </p:CVScope.Body>
+                                <p:CVScope.DesignTimeCache>
+                                  <uc:CVCache CvUiElements="{x:Null}" OcrTexts="{x:Null}" />
+                                </p:CVScope.DesignTimeCache>
+                                <p:CVScope.DesignTimeCacheContainer>
+                                  <uc:CvCacheContainer>
+                                    <uc:CvCacheContainer.Caches>
+                                      <scg:List x:TypeArguments="uc:CVCache" Capacity="1">
+                                        <uc:CVCache DisplayName="Main Screen" Id="0cd68153-0bb0-42c2-9a07-8a6831f9d014" InformativeScreenshot="48f2dc417837f7a973f672c6bc30cb61" LogicalPosition="131, -28" OcrText="Service Lines:&#xA;Branches:&#xA;(ALL)&#xA;Teams:&#xA;(ALL)&#xA;Patients:&#xA;(ALL)&#xA;Events:&#xA;(ALL)&#xA;Stages:&#xA;(ALL)&#xA;Patient Status:&#xA;(ALL)&#xA;Workers:&#xA;(ALL)&#xA;AR Groups:&#xA;(ALL) Patient&#xA;Drag a column header here to group by that column.&#xA;Q&#xA;Q&#xA;Q *'DNTMASTE-RTE-MPITTE-.&#xA;HOS COMMERCIAL&#xA;*'DNTÜÄSTERTEÜPCÄTE.&#xA;HOS COMMERCIAL&#xA;*'FIELDÜÄSTERTEÜPCÄTE.&#xA;F2F NP&#xA;*'FIELDÜÄSTERTEÜPCÄTE.&#xA;F2F NP&#xA;*'FIELDÜÄSTERTEÜPCÄTE.&#xA;F2F PHY&#xA;*'FIELDÜÄSTERTEÜPCÄTE.&#xA;F2F PHY&#xA;*'LNAME. CODING REVIEW&#xA;*'LNAME. CRS VJEE-K I&#xA;*'LNAME. CRS VJEE-K I&#xA;COMMERCIAL&#xA;COMMERCIAL • Res nsible Pas itin&#xA;CODNSSPE-CTATTST&#xA;HOS CODING SPECIALIST&#xA;HOS CODING SPECIALIST&#xA;CODING SPECIALIST&#xA;CODING SPECIALIST&#xA;HOS CODING SPECIALIST&#xA;CODING SPECIALIST&#xA;HOS CODING SPECIALIST&#xA;CODING SPECIALIST&#xA;HOS CODING SPECIALIST&#xA;CODING SPECIALIST&#xA;Lodd -E Task&#xA;REVIEVÆOSPICEPOCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIEVJ@SFORÄPPROPRIÄTE&#xA;CODING&#xA;REVIEW-RÖSPICEVOCFOR&#xA;APPROPRIATE CODING&#xA;REVIEW-RÖSPICEVÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIEITRÖSPICEVÖCFOR&#xA;APPROPRIATE CODING&#xA;REVIE-VTRÖSPICE--PÖCFOR&#xA;APPROPRIATE CODING Close" Position="131, -28">
+                                          <uc:CVCache.CvUiElements>
+                                            <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="128">
+                                              <uc:CvElementInfo Category="ArrowButton" Region="306, 552, 18, 18" />
+                                              <uc:CvElementInfo Category="Icon" Region="232, 131, 19, 19" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="989, 112, 18, 17" />
+                                              <uc:CvElementInfo Category="Icon" Region="233, 192, 18, 18" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="973, 549, 17, 17" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="990, 533, 17, 18" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="992, 58, 14, 16" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="978, 60, 11, 13" />
+                                              <uc:CvElementInfo Category="Icon" Region="254, 553, 19, 17" />
+                                              <uc:CvElementInfo Category="Icon" Region="253, 252, 21, 19" />
+                                              <uc:CvElementInfo Category="Button" Region="309, 40, 144, 38" />
+                                              <uc:CvElementInfo Category="Button" Region="888, 590, 120, 37" />
+                                              <uc:CvElementInfo Category="Icon" Region="538, 136, 18, 18" />
+                                              <uc:CvElementInfo Category="Icon" Region="974, 115, 14, 15" />
+                                              <uc:CvElementInfo Category="Icon" Region="253, 372, 21, 18" />
+                                              <uc:CvElementInfo Category="Button" Region="40, 489, 234, 24" />
+                                              <uc:CvElementInfo Category="Icon" Region="308, 136, 16, 17" />
+                                              <uc:CvElementInfo Category="Icon" Region="255, 493, 17, 16" />
+                                              <uc:CvElementInfo Category="Button" Region="254, 492, 19, 19" />
+                                              <uc:CvElementInfo Category="Button" Region="457, 44, 163, 32" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="513, 116, 14, 14" />
+                                              <uc:CvElementInfo Category="InputBox" Region="42, 307, 225, 24" />
+                                              <uc:CvElementInfo Category="InputBox" Region="46, 545, 228, 27" />
+                                              <uc:CvElementInfo Category="InputBox" Region="331, 134, 210, 21" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="724, 115, 15, 16" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="49, 590, 212, 34" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="328, 137, 16, 16" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="1, 31, 16, 15" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="1, 30, 17, 17" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="38, 306, 234, 26" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="1, 31, 16, 15" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="253, 372, 21, 18" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="44, 366, 227, 25" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="43, 185, 228, 28" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="522, 115, 16, 17" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="253, 311, 21, 19" />
+                                              <uc:CvElementInfo Category="CloseButton" Confidence="Runtime" Region="3, 31, 14, 14" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="45, 248, 227, 25" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="253, 252, 21, 20" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="992, 59, 12, 16" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="999, 634, 8, 7" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="346, 88, 11, 14" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="974, 115, 14, 15" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="512, 115, 16, 15" />
+                                              <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="740, 137, 16, 15" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="42, 72, 36, 19" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="44, 545, 232, 28" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="50, 128, 212, 25" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="770, 47, 126, 23" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="538, 136, 19, 19" />
+                                              <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="974, 115, 15, 17" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="252, 312, 22, 21" />
+                                              <uc:CvElementInfo Category="InputBox" Region="38, 428, 235, 25" />
+                                              <uc:CvElementInfo Category="InputBox" Region="42, 68, 234, 25" />
+                                              <uc:CvElementInfo Category="InputBox" Region="45, 125, 228, 28" />
+                                              <uc:CvElementInfo Category="InputBox" Region="45, 248, 229, 25" />
+                                              <uc:CvElementInfo Category="InputBox" Region="33, 185, 240, 29" />
+                                              <uc:CvElementInfo Category="InputBox" Region="44, 368, 231, 23" />
+                                              <uc:CvElementInfo Category="InputBox" Region="35, 488, 240, 24" />
+                                              <uc:CvElementInfo Category="InputBox" Confidence="Runtime" Region="529, 134, 466, 22" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="253, 430, 21, 23" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="252, 71, 18, 21" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="254, 191, 17, 19" />
+                                              <uc:CvElementInfo Category="ArrowButton" Region="254, 131, 18, 19" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="253, 492, 19, 18" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="253, 372, 20, 18" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="538, 136, 18, 18" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="253, 252, 21, 19" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="38, 489, 233, 23" />
+                                              <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="45, 247, 224, 26" />
+                                            </scg:List>
+                                          </uc:CVCache.CvUiElements>
+                                          <uc:CVCache.OcrTexts>
+                                            <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="256">
+                                              <uc:OcrTextInfo Region="41, 54, 51, 10" Text="Service" />
+                                              <uc:OcrTextInfo Region="96, 54, 38, 10" Text="Lines:" />
+                                              <uc:OcrTextInfo Region="42, 114, 66, 10" Text="Branches:" />
+                                              <uc:OcrTextInfo Region="46, 137, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="41, 174, 49, 10" Text="Teams:" />
+                                              <uc:OcrTextInfo Region="46, 197, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="42, 234, 58, 10" Text="Patients:" />
+                                              <uc:OcrTextInfo Region="45, 257, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="42, 294, 50, 10" Text="Events:" />
+                                              <uc:OcrTextInfo Region="45, 317, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="41, 354, 51, 13" Text="Stages:" />
+                                              <uc:OcrTextInfo Region="45, 377, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="42, 414, 47, 10" Text="Patient" />
+                                              <uc:OcrTextInfo Region="92, 414, 45, 10" Text="Status:" />
+                                              <uc:OcrTextInfo Region="46, 437, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="41, 474, 59, 10" Text="Workers:" />
+                                              <uc:OcrTextInfo Region="45, 497, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="41, 534, 20, 10" Text="AR" />
+                                              <uc:OcrTextInfo Region="66, 534, 51, 13" Text="Groups:" />
+                                              <uc:OcrTextInfo Region="45, 557, 30, 13" Text="(ALL)" />
+                                              <uc:OcrTextInfo Region="318, 54, 40, 10" Text="Patient" />
+                                              <uc:OcrTextInfo Region="317, 89, 26, 13" Text="Drag" />
+                                              <uc:OcrTextInfo Region="347, 92, 7, 7" Text="a" />
+                                              <uc:OcrTextInfo Region="359, 89, 42, 10" Text="column" />
+                                              <uc:OcrTextInfo Region="406, 89, 39, 10" Text="header" />
+                                              <uc:OcrTextInfo Region="449, 89, 24, 10" Text="here" />
+                                              <uc:OcrTextInfo Region="478, 90, 11, 9" Text="to" />
+                                              <uc:OcrTextInfo Region="493, 92, 32, 10" Text="group" />
+                                              <uc:OcrTextInfo Region="530, 89, 13, 13" Text="by" />
+                                              <uc:OcrTextInfo Region="548, 89, 22, 10" Text="that" />
+                                              <uc:OcrTextInfo Region="574, 89, 45, 10" Text="column." />
+                                              <uc:OcrTextInfo Region="257, 315, 14, 14" Text="Q" />
+                                              <uc:OcrTextInfo Region="257, 375, 14, 14" Text="Q" />
+                                              <uc:OcrTextInfo Region="257, 495, 14, 14" Text="Q" />
+                                              <uc:OcrTextInfo Region="331, 165, 170, 12" Text="*'DNTMASTE-RTE-MPITTE-." />
+                                              <uc:OcrTextInfo Region="332, 181, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="363, 181, 87, 10" Text="COMMERCIAL" />
+                                              <uc:OcrTextInfo Region="331, 199, 170, 13" Text="*'DNTÜÄSTERTEÜPCÄTE." />
+                                              <uc:OcrTextInfo Region="332, 216, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="363, 216, 87, 10" Text="COMMERCIAL" />
+                                              <uc:OcrTextInfo Region="331, 234, 181, 13" Text="*'FIELDÜÄSTERTEÜPCÄTE." />
+                                              <uc:OcrTextInfo Region="332, 251, 22, 10" Text="F2F" />
+                                              <uc:OcrTextInfo Region="358, 251, 17, 10" Text="NP" />
+                                              <uc:OcrTextInfo Region="331, 269, 181, 13" Text="*'FIELDÜÄSTERTEÜPCÄTE." />
+                                              <uc:OcrTextInfo Region="332, 286, 22, 10" Text="F2F" />
+                                              <uc:OcrTextInfo Region="358, 286, 17, 10" Text="NP" />
+                                              <uc:OcrTextInfo Region="331, 304, 181, 13" Text="*'FIELDÜÄSTERTEÜPCÄTE." />
+                                              <uc:OcrTextInfo Region="332, 321, 22, 10" Text="F2F" />
+                                              <uc:OcrTextInfo Region="358, 321, 26, 10" Text="PHY" />
+                                              <uc:OcrTextInfo Region="331, 339, 181, 13" Text="*'FIELDÜÄSTERTEÜPCÄTE." />
+                                              <uc:OcrTextInfo Region="332, 356, 22, 10" Text="F2F" />
+                                              <uc:OcrTextInfo Region="358, 356, 26, 10" Text="PHY" />
+                                              <uc:OcrTextInfo Region="331, 377, 58, 11" Text="*'LNAME." />
+                                              <uc:OcrTextInfo Region="394, 377, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="448, 377, 52, 10" Text="REVIEW" />
+                                              <uc:OcrTextInfo Region="331, 412, 58, 11" Text="*'LNAME." />
+                                              <uc:OcrTextInfo Region="394, 412, 25, 10" Text="CRS" />
+                                              <uc:OcrTextInfo Region="423, 412, 39, 10" Text="VJEE-K" />
+                                              <uc:OcrTextInfo Region="467, 412, 3, 10" Text="I" />
+                                              <uc:OcrTextInfo Region="331, 447, 58, 11" Text="*'LNAME." />
+                                              <uc:OcrTextInfo Region="394, 447, 25, 10" Text="CRS" />
+                                              <uc:OcrTextInfo Region="423, 447, 39, 10" Text="VJEE-K" />
+                                              <uc:OcrTextInfo Region="467, 447, 3, 10" Text="I" />
+                                              <uc:OcrTextInfo Region="332, 496, 87, 10" Text="COMMERCIAL" />
+                                              <uc:OcrTextInfo Region="332, 531, 87, 10" Text="COMMERCIAL" />
+                                              <uc:OcrTextInfo Region="516, 121, 7, 4" Text="•" />
+                                              <uc:OcrTextInfo Region="540, 118, 24, 10" Text="Res" />
+                                              <uc:OcrTextInfo Region="582, 118, 39, 10" Text="nsible" />
+                                              <uc:OcrTextInfo Region="625, 118, 24, 10" Text="Pas" />
+                                              <uc:OcrTextInfo Region="651, 118, 25, 10" Text="itin" />
+                                              <uc:OcrTextInfo Region="543, 165, 130, 12" Text="CODNSSPE-CTATTST" />
+                                              <uc:OcrTextInfo Region="543, 202, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="574, 202, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="628, 202, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 237, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="574, 237, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="628, 237, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 272, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="597, 272, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 307, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="597, 307, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 342, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="574, 342, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="628, 342, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 377, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="597, 377, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 412, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="574, 412, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="628, 412, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 447, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="597, 447, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 482, 26, 10" Text="HOS" />
+                                              <uc:OcrTextInfo Region="574, 482, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="628, 482, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="543, 517, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="597, 517, 76, 10" Text="SPECIALIST" />
+                                              <uc:OcrTextInfo Region="142, 607, 31, 10" Text="Lodd" />
+                                              <uc:OcrTextInfo Region="726, 120, 9, 7" Text="-E" />
+                                              <uc:OcrTextInfo Region="739, 118, 33, 10" Text="Task" />
+                                              <uc:OcrTextInfo Region="743, 165, 174, 11" Text="REVIEVÆOSPICEPOCFOR" />
+                                              <uc:OcrTextInfo Region="742, 181, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 181, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 199, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 216, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 216, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 234, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 251, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 251, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 269, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 286, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 286, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 304, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 321, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 321, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 339, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 356, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 356, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 374, 202, 12" Text="REVIEVJ@SFORÄPPROPRIÄTE" />
+                                              <uc:OcrTextInfo Region="743, 391, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 409, 174, 12" Text="REVIEW-RÖSPICEVOCFOR" />
+                                              <uc:OcrTextInfo Region="742, 426, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 426, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 444, 174, 12" Text="REVIEW-RÖSPICEVÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 461, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 461, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 479, 174, 12" Text="REVIEITRÖSPICEVÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 496, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 496, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="743, 514, 174, 12" Text="REVIE-VTRÖSPICE--PÖCFOR" />
+                                              <uc:OcrTextInfo Region="742, 531, 94, 10" Text="APPROPRIATE" />
+                                              <uc:OcrTextInfo Region="840, 531, 50, 10" Text="CODING" />
+                                              <uc:OcrTextInfo Region="929, 607, 38, 10" Text="Close" />
+                                            </scg:List>
+                                          </uc:CVCache.OcrTexts>
+                                        </uc:CVCache>
+                                      </scg:List>
+                                    </uc:CvCacheContainer.Caches>
+                                  </uc:CvCacheContainer>
+                                </p:CVScope.DesignTimeCacheContainer>
+                                <p:CVScope.OCREngine>
+                                  <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                                    <ActivityFunc.Argument>
+                                      <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                                    </ActivityFunc.Argument>
+                                    <ui:MicrosoftOCR FilterRegion="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Microsoft OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_2" Image="[Image]" />
+                                  </ActivityFunc>
+                                </p:CVScope.OCREngine>
+                                <p:CVScope.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c16e8f89-7d28-4358-b916-d79464b1d91e" InformativeScreenshot="0964ed7fdb32b0b747aa3ac810889c25" Selector="&lt;wnd app='wfica32.exe' cls='Transparent Windows Client' title='Workflow - \\Remote' /&gt;" WaitForReady="INTERACTIVE">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                  </ui:Target>
+                                </p:CVScope.Target>
+                                <p:CVScope.UseLocalServer>
+                                  <InArgument x:TypeArguments="x:Boolean" />
+                                </p:CVScope.UseLocalServer>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </p:CVScope>
+                            </TryCatch.Try>
+                            <TryCatch.Catches>
+                              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="438,21" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ActivityAction x:TypeArguments="s:Exception">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="376,66" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Log_Exception_3" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Error in selecting the&quot;+Title+&quot; filter param&quot;]">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                    </ui:LogMessage>
+                                    <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_4" MessageCode="ERROR_IN_SELECT_FILTER_PARAM" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                                      <eue:Throw_Business_Exception.ExtraMessage>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                                        </InArgument>
+                                      </eue:Throw_Business_Exception.ExtraMessage>
+                                    </eue:Throw_Business_Exception>
+                                  </Sequence>
+                                </ActivityAction>
+                              </Catch>
+                            </TryCatch.Catches>
+                          </TryCatch>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Invoke workflow for entering Search By and Search For values into the popup window " DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="379,154" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="V3\HCHB\Common\Multi Select Popup.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="SelectAnchor">[SelectAnchor]</InArgument>
+                              <InArgument x:TypeArguments="s:String[]" x:Key="Selection">[Selection]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="Title">[Title]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="SearchBy">[SearchBy]</InArgument>
+                              <InArgument x:TypeArguments="x:Boolean" x:Key="ContinueOnFailure">[ContinueOnFailure]</InArgument>
+                              <InArgument x:TypeArguments="x:Boolean" x:Key="Deselect">[IsDeselect]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:InvokeWorkflowFile>
+                        </Sequence>
+                      </TryCatch.Try>
+                      <TryCatch.Catches>
+                        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ActivityAction x:TypeArguments="s:Exception">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="242,66" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Log_Exception_4" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                              <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_5" MessageCode="ERROR_IN_SELECT_FILTER_PARAM" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                                <eue:Throw_Business_Exception.ExtraMessage>
+                                  <InArgument x:TypeArguments="x:String">
+                                    <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                                  </InArgument>
+                                </eue:Throw_Business_Exception.ExtraMessage>
+                              </eue:Throw_Business_Exception>
+                            </Sequence>
+                          </ActivityAction>
+                        </Catch>
+                      </TryCatch.Catches>
+                    </TryCatch>
+                  </Switch>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ForEach>
+          <TryCatch DisplayName="Load-Try Catch" sap:VirtualizedContainerService.HintSize="577,51" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch.Try>
+              <Sequence sap:VirtualizedContainerService.HintSize="376,239" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SpecialKey="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="Activity for Clicking Alt + I for Load" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="l" KeyModifiers="Alt">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="773a8452-bf19-44b5-9bb1-77ea9a0bed97">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SendHotkey.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SendHotkey>
+              </Sequence>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_6">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="242,176" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Log_Exception_5" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                    <eue:Throw_Business_Exception DisplayName="Throw Business Exception" ExtraMessage="Error in Loading Selection Filters" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_7" MessageCode="ERROR_IN_LOADING_SELECTION_FILTERS" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="623,21" sap2010:WorkflowViewState.IdRef="Catch`1_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Exception Handling" sap:VirtualizedContainerService.HintSize="326,343" sap2010:WorkflowViewState.IdRef="Sequence_18">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <eue:Log_Exception DisplayName="Log Exception" ExceptionObject="[exception]" sap:VirtualizedContainerService.HintSize="284,79" sap2010:WorkflowViewState.IdRef="Log_Exception_6" __Prefix="[IO.Directory.GetCurrentDirectory]" />
+              <eue:Throw_Business_Exception DisplayName="Throw Business Exception" sap:VirtualizedContainerService.HintSize="284,132" sap2010:WorkflowViewState.IdRef="Throw_Business_Exception_8" MessageCode="FAILED_TO_SELECT_FILTERS" __Prefix="[IO.Directory.GetCurrentDirectory]">
+                <eue:Throw_Business_Exception.ExtraMessage>
+                  <InArgument x:TypeArguments="x:String">
+                    <Literal x:TypeArguments="x:String" DisplayName="Literal&lt;String&gt;" Value="" />
+                  </InArgument>
+                </eue:Throw_Business_Exception.ExtraMessage>
+              </eue:Throw_Business_Exception>
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+        <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="623,21" sap2010:WorkflowViewState.IdRef="Catch`1_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="exception" />
+            </ActivityAction.Argument>
+            <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="657,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Panel Filter Module Ended&quot;]" />
+  </Sequence>
+</Activity>

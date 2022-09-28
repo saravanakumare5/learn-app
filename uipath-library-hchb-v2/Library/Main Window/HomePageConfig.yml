@@ -1,0 +1,85 @@
+Patient Related Tasks:
+  - PageHeader: Clinical Manager
+    SectionName: Workflow console
+    LinkName: Patient Related Tasks
+    SubLinkName: ""
+    PopupName: Workflow
+Review Coordination Notes:
+  - PageHeader: Clinical Manager
+    SectionName: Workflow console
+    LinkName: Review Coordination Notes
+    SubLinkName: ""
+    PopupName: Workflow
+Schedule by Patient:
+  - PageHeader: Resource Manager
+    SectionName: Scheduling Console
+    LinkName: Schedule by Patient
+    SubLinkName: ""
+    PopupName: Select Patients to Schedule
+Episode Billing Audit Report:
+  - PageHeader: Financial Manager
+    SectionName: Per Diem
+    LinkName: Billing Audit
+    SubLinkName: Episode Billing Audit Report
+    PopupName: Episode Billing Audit Report
+Claim Management:
+  - PageHeader: Financial Manager
+    SectionName: Per Diem
+    LinkName: Claim Management
+    SubLinkName: ""
+    PopupName: Claim Management - Per Diem
+PDGM Claim Management:
+  - PageHeader: Financial Manager
+    SectionName: PDGM
+    LinkName: Claim Management
+    SubLinkName: ""
+    PopupName: Claim Management - PDGM
+INS/SELFPAY Claim Management:
+  - PageHeader: Financial Manager
+    SectionName: INS/SELFPAY
+    LinkName: Claim Management
+    SubLinkName: ""
+    PopupName: Claim Management - Ins/Self-Pay
+Report Manager:
+  - PageHeader: Clinical Manager
+    SectionName: Report Manager
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: Report Manager
+Clinical Input:
+  - PageHeader: Clinical Manager
+    SectionName: Clinical Input
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: Clinical Input
+New Referral:
+  - PageHeader: Clinical Manager
+    SectionName: New Referral
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: Patient Intake
+Resource Manager:
+  - PageHeader: Resource Manager
+    SectionName: Report Manager
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: Report Manager
+Accounts Receivable:
+  - PageHeader: Financial Manager
+    SectionName: AR
+    LinkName: Accounts Receivable
+    SubLinkName: ""
+    PopupName: Accounts Receivable
+
+PCR Console:
+  - PageHeader: Clinical Manager
+    SectionName: PCR Console
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: Pre-Claim Review Console
+OASIS Console:
+  - PageHeader: Clinical Manager
+    SectionName: OASIS Console
+    LinkName: ""
+    SubLinkName: ""
+    PopupName: OASIS Console
