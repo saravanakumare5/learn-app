@@ -1,0 +1,32 @@
+
+<app-header/>
+
+<!-- <div class="grid-container">
+    
+    <input type="text" [(ngModel)]="searchText" placeholder="Search..." />
+  
+    
+    <table border="1">
+      <thead>
+        <tr>
+          <th *ngFor="let column of columns" (click)="sortData(column)">
+            {{ column | titlecase }}
+            <span *ngIf="sortColumn === column">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of getFilteredData() | paginate: { itemsPerPage: iPP, currentPage: currentPage }">
+          <td *ngFor="let column of columns">{{ row[column] }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div> -->
+  <div class="product-container">
+    <app-side-panel></app-side-panel>
+    <router-outlet />
+  <!-- <app-products></app-products> -->
+  </div>

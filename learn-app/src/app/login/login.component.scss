@@ -1,0 +1,22 @@
+.login-container {
+    position: absolute;
+    left: 42%;
+    top: 40%;
+    
+    .login-text-box-filed {
+        display: grid;
+        .password-filed {
+            margin-top: 15px;
+        }
+    }
+    .login-button-container {
+        display: flex;
+        margin-top: 15px;
+        .sign-up-button {
+            margin-left: 15px;
+        }
+    }
+    
+    
+    
+}

@@ -1,0 +1,22 @@
+.signup-container {
+    position: absolute;
+    left: 42%;
+    top: 40%;
+    
+    .signup-text-box-filed {
+        display: grid;
+        .password-field {
+            margin-top: 15px;
+        }
+        .email-field {
+            margin-top: 15px;
+        }
+    }
+    .signup-button-container {
+        display: flex;
+        margin-top: 15px;
+    }
+    
+    
+    
+}

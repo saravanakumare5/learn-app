@@ -1,0 +1,27 @@
+.grid-container {
+  width: 75%;
+  border-collapse: collapse;
+  left: 8%;
+  position: absolute;
+  top: 22%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  // left: 8%;
+  // position: absolute;
+  // top: 22%;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+ 
+
+

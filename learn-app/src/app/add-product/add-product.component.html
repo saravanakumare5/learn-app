@@ -1,0 +1,152 @@
+<!-- <div class="signup-container">
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.valid)">
+    <div class="signup-text-box-filed">
+        <div class="username-field">
+            <input type="text" placeholder="product name" formControlName="name">
+        </div>
+        <div class="password-field">
+            <input type="number" placeholder="quantity" formControlName="quantity">
+        </div>
+        <div class="password-field">
+            <input type="text" placeholder="price" formControlName="price">
+        </div>
+        <div class="email-field">
+            <textarea id="comment" name="comment" rows="4" cols="50" formControlName="discreption" placeholder="Enter your comment here..."></textarea>
+            
+        </div>
+        <div class="password-field">
+            <input type="file" (change)="onFileSelected($event)">
+        </div>
+    </div>
+    <div *ngIf="validationMsg">
+        {{validationMsg}}
+    </div>
+
+    <div class="signup-button-container">
+        <div class="sign-up-button">
+            <button>Add</button>
+        </div>
+    </div>
+</form>
+</div>  -->
+
+<div class="container-fluid">
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.valid)">
+    <div class="row">
+        <div class="col-8">
+            <div class="general-information-container">
+                <span> General Information</span>
+                <div>
+                    <label for="ProductName" class="form-label" >Product Name</label>
+                    <div>
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                </div>
+                <div>
+                    <label for="Description" class="form-label">Description</label>
+                    <div>
+                        <textarea class="form-control" formControlName="discreption"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-4 upload-image-container">
+            <!-- <div class=""> -->
+            <span> Product Media</span>
+            <div>
+                <label for="Product Photo" class="form-label">Product Photo</label>
+                <div>
+                    <input type="file" #fileInput class="d-none" (change)="onImageUpload($event)" multiple />
+                    <!-- Button to Trigger File Input -->
+                    <!-- The <input type="file"> element is hidden using class="d-none" from Bootstrap.
+                        The #fileInput template reference variable gives programmatic access to the element. -->
+                    <button class="btn btn-primary" (click)="fileInput.click()">
+                        Upload File
+                    </button>
+                </div>
+            </div>
+            <div class="image-preview-container">
+                <span class="col-md-4 mb-3" *ngFor="let image of imagePreviews; let i = index">
+                    <!-- <img *ngIf="i < 3" -->
+                    <img [src]="image" alt="Image Preview" class="img-fluid img-thumbnail"
+                        style="max-height: 200px; object-fit: cover;" />
+                </span>
+                <p *ngIf="imagePreviews.length === 0" class="text-muted">No images uploaded</p>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="pricing-container">
+                <span> Pricing</span>
+                <div>
+                    <label for="ProductName" class="form-label">Base Price</label>
+                    <div>
+                        <input type="text" class="form-control" formControlName="price">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="Description" class="form-label">Discount Percentage %</label>
+                        <!-- <div> -->
+                        <input type="text" class="form-control" formControlName="discount">
+                    </div>
+                    <div class="col-6">
+                        <label for="Description" class="form-label">Discount Type</label>
+                        <!-- <div> -->
+                        <!-- <div class="dropdown">
+                            <input type="text" class="form-control" placeholder="Search or Select" (click)="toggleDropdown()" [(ngModel)]="inputValue" (input)="filterOptions()"/>
+                            <ul class="dropdown-menu w-100" [class.show]="isDropdownOpen" style="max-height: 200px; overflow-y: auto;">
+                              <li *ngFor="let option of filteredOptions; let i = index" class="dropdown-item" (click)="selectOption(option)">
+                                {{ option }}
+                              </li>
+                            </ul>
+                          </div> -->
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown link
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="pricing-container">
+                <span> Inventory</span>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="Description" class="form-label">SKU</label>
+                        <input type="text" class="form-control" formControlName="sku">
+                    </div>
+                    <div class="col-4">
+                        <label for="Description" class="form-label">Barcode</label>
+                        <input type="text" class="form-control" formControlName="barcode">
+                    </div>
+                    <div class="col-4">
+                        <label for="Description" class="form-label">Quantity</label>
+                        <input type="text" class="form-control" formControlName="quantity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>

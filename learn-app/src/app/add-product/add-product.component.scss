@@ -1,0 +1,82 @@
+.signup-container {
+    position: absolute;
+    left: 42%;
+    top: 20%;
+    
+    .signup-text-box-filed {
+        display: grid;
+        .password-field {
+            margin-top: 15px;
+        }
+        .email-field {
+            margin-top: 15px;
+        }
+    }
+    .signup-button-container {
+        display: flex;
+        margin-top: 15px;
+    } 
+}
+
+.container-fluid {
+    padding-left: 12%;
+    padding-right: 2%;
+    position: absolute;
+    top: 5%;
+    .row {
+        // background: aliceblue;
+        position: relative;
+        margin-top: 10px;
+        padding-bottom: 20px;
+    }
+    .col-8 {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+        right: 6px;
+    }
+    .upload-image-container {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+        left: 7px;
+    }
+    span {
+        font-weight: bold;
+    }
+    .general-information-container {
+        
+        textarea {
+            height: 185px;
+            margin-bottom: 20px;
+        }
+    }
+    input:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    textarea:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    .image-preview-container {
+        position: relative;
+        top: 20px;
+    }
+    #dropdownMenuLink {
+        display: -webkit-box;
+        border: 1px solid lightgray;
+    }
+}
+
+.img-thumbnail {
+    max-width: 15%;
+    height: 75px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+  }
+  

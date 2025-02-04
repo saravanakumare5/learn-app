@@ -1,0 +1,92 @@
+
+
+<!-- <div class="container">
+    <div class="product-container" *ngFor="let product of productList">
+        <img src={{product.image}} alt="image not displaying">
+        <h4> {{product.name}} </h4>
+        <p> {{product.discreption}} </p>
+        <span> {{product.price}} </span>
+        <div>
+        <button>Add to Cart</button>
+        <button class="buy-btn">Buy</button>
+        </div>
+    </div>
+    </div>
+ -->
+  
+  <!-- Grid container -->
+  <!-- <div class="image-grid">
+    <img src="../../assets/house.PNG" alt="Image 1">
+    <img src="../../assets/house.PNG" alt="Image 2">
+    <img src="../../assets/house.PNG" alt="Image 3">
+    <img src="../../assets/house.PNG" alt="Image 4">
+    <img src="../../assets/house.PNG" alt="Image 5">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 1">
+    <img src="../../assets/house.PNG" alt="Image 2">
+    <img src="../../assets/house.PNG" alt="Image 3">
+    <img src="../../assets/house.PNG" alt="Image 4">
+    <img src="../../assets/house.PNG" alt="Image 5">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 1">
+    <img src="../../assets/house.PNG" alt="Image 2">
+    <img src="../../assets/house.PNG" alt="Image 3">
+    <img src="../../assets/house.PNG" alt="Image 4">
+    <img src="../../assets/house.PNG" alt="Image 5">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 1">
+    <img src="../../assets/house.PNG" alt="Image 2">
+    <img src="../../assets/house.PNG" alt="Image 3">
+    <img src="../../assets/house.PNG" alt="Image 4">
+    <img src="../../assets/house.PNG" alt="Image 5">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 1">
+    <img src="../../assets/house.PNG" alt="Image 2">
+    <img src="../../assets/house.PNG" alt="Image 3">
+    <img src="../../assets/house.PNG" alt="Image 4">
+    <img src="../../assets/house.PNG" alt="Image 5">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+    <img src="../../assets/house.PNG" alt="Image 6">
+  </div>  -->
+  <div class="container mt-4">
+    <div class="row row-cols-12 row-cols-lg-6 row-cols-md-3">
+      <div *ngFor="let product of productList" class="col text-left">
+        <img src="../../assets/house.PNG" class="img-fluid mb-2" alt="Image 1">
+        <h4> {{product.name}} </h4>
+        <p> {{product.discreption}} </p>
+        <span> {{product.price}} </span>
+        <div class="product-button-container">
+        <button>Add to Cart</button>
+        <button class="buy-btn">Buy</button>
+      </div>
+    </div>
+  </div>
