@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorComponent } from './error/error.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -14,6 +14,9 @@ import { HeaderComponent } from './header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductsComponent } from './products/products.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { HttpService} from './service/http.service';
+
+import { AuthInterceptor } from './service/auth.interceptor';
 
 
 @NgModule({
@@ -36,7 +39,9 @@ import { AddProductComponent } from './add-product/add-product.component';
     NgxPaginationModule
   ],
   providers: [
-    provideHttpClient(),
+    HttpService,
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
