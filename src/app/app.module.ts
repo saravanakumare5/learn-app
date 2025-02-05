@@ -40,7 +40,7 @@ import { AuthInterceptor } from './service/auth.interceptor';
   ],
   providers: [
     HttpService,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
