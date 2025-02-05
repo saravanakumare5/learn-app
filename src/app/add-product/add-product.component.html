@@ -1,43 +1,11 @@
-<!-- <div class="signup-container">
-    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.valid)">
-    <div class="signup-text-box-filed">
-        <div class="username-field">
-            <input type="text" placeholder="product name" formControlName="name">
-        </div>
-        <div class="password-field">
-            <input type="number" placeholder="quantity" formControlName="quantity">
-        </div>
-        <div class="password-field">
-            <input type="text" placeholder="price" formControlName="price">
-        </div>
-        <div class="email-field">
-            <textarea id="comment" name="comment" rows="4" cols="50" formControlName="discreption" placeholder="Enter your comment here..."></textarea>
-            
-        </div>
-        <div class="password-field">
-            <input type="file" (change)="onFileSelected($event)">
-        </div>
-    </div>
-    <div *ngIf="validationMsg">
-        {{validationMsg}}
-    </div>
-
-    <div class="signup-button-container">
-        <div class="sign-up-button">
-            <button>Add</button>
-        </div>
-    </div>
-</form>
-</div>  -->
-
 <div class="container-fluid">
-    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.valid)">
+    <form [formGroup]="addProductForm">
     <div class="row">
         <div class="col-8">
             <div class="general-information-container">
                 <span> General Information</span>
                 <div>
-                    <label for="ProductName" class="form-label" >Product Name</label>
+                    <label for="ProductName" class="form-label">Product Name</label>
                     <div>
                         <input type="text" class="form-control" formControlName="name">
                     </div>
@@ -145,7 +113,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <button class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary" (click)="onSubmit(addProductForm.valid)">Submit</button>
         </div>
     </div>
     </form>

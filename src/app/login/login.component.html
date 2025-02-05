@@ -1,13 +1,13 @@
 <div class="login-container">
     <div class="login-text-box-filed">
         <div class="username-filed">
-    <input  type="text" placeholder="user name" [(ngModel)]="userName"></div>
-    <div class="password-filed"><input  type="password" placeholder="password" [(ngModel)]="password"></div>
+    <input  type="text" class="form-control" placeholder="user name" [(ngModel)]="userName"></div>
+    <div class="password-filed"><input  type="password" class="form-control" placeholder="password" [(ngModel)]="password"></div>
 </div>
     <div class="login-button-container">
-    <button (click)="login()">login</button>
+    <button class="btn btn-primary" (click)="login()">login</button>
     <div class="sign-up-button">
-    <button routerLink="/singup">signUp</button>
+    <button class="btn btn-primary" routerLink="/singup">signUp</button>
 </div>
 </div>
 {{loginResponse}}

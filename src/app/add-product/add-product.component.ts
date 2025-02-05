@@ -45,7 +45,7 @@ export class AddProductComponent {
       barcode: [''],
       image: [''],
       quantity: ['', Validators.min(0)],
-
+      brand: ['']
     });
   }
 
@@ -55,7 +55,7 @@ export class AddProductComponent {
       await this.productService.addProduct(this.addProductForm.value);
       console.log("product added successfully");
       this.addProductForm.reset();
-
+      this.imagePreviews = [];
     } else {
       this.validationMsg = "all field must be filled";
     }
@@ -74,15 +74,18 @@ export class AddProductComponent {
         reader.onload = () => {
           this.imagePreviews.push(reader.result as string); // Add image URL to the array
         };
+        reader.readAsDataURL(file);
       });
     }
-    await this.uploadImage(fileName, fileType);
+    let sku = this.addProductForm.get("sku")?.value;
+    await this.uploadImage(fileName, fileType, sku);
   }
 
-  async uploadImage(fileName: String, fileType: String) {
+  async uploadImage(fileName: String, fileType: String, sku: string) {
     let preSignedURLObj = {
       fileName: fileName,
-      fileType: fileType
+      fileType: fileType,
+      sku: sku
     }
     let preSingedUrl = await this.awsService.getPreSignedURL(preSignedURLObj);
     console.log("preSingedUrl 1", preSingedUrl);
