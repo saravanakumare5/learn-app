@@ -14,8 +14,10 @@ import { HeaderComponent } from './header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductsComponent } from './products/products.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { LoaderComponent } from './loader/loader.component';
 
 import { AuthInterceptor } from './service/auth.interceptor';
+import { LoadingInterceptor } from './service/loading.interceptor';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { AuthInterceptor } from './service/auth.interceptor';
     SidePanelComponent,
     HeaderComponent,
     ProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { AuthInterceptor } from './service/auth.interceptor';
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
