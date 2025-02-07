@@ -14,6 +14,7 @@ export class AddProductComponent {
   previewUrl: string | ArrayBuffer | null | undefined = null;
   public validationMsg: string = '';
   imagePreviews: string[] = [];
+  imageFileName: string[] = [];
   inputValue: string = '';
   isDropdownOpen: boolean = false;
   options: string[] = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry', 'Fig', 'Grapes'];
@@ -51,6 +52,9 @@ export class AddProductComponent {
 
   async onSubmit(isValid: boolean) {
     if (isValid) {
+      this.addProductForm.patchValue({
+        image: this.imageFileName
+      })
       this.validationMsg = '';
       await this.productService.addProduct(this.addProductForm.value);
       console.log("product added successfully");
@@ -72,13 +76,14 @@ export class AddProductComponent {
         fileType = file.type;
         const reader = new FileReader();
         reader.onload = () => {
-          this.imagePreviews.push(reader.result as string); // Add image URL to the array
+          this.imagePreviews.push(reader.result as string);
         };
         reader.readAsDataURL(file);
       });
     }
     let sku = this.addProductForm.get("sku")?.value;
     await this.uploadImage(fileName, fileType, sku);
+    this.imageFileName.push(fileName);
   }
 
   async uploadImage(fileName: String, fileType: String, sku: string) {
@@ -88,14 +93,11 @@ export class AddProductComponent {
       sku: sku
     }
     let preSingedUrl = await this.awsService.getPreSignedURL(preSignedURLObj);
-    console.log("preSingedUrl 1", preSingedUrl);
-    let uploadresult = await this.uploadImageToAWS(preSingedUrl, fileType);
+    await this.uploadImageToAWS(preSingedUrl, fileType);
   }
 
   async uploadImageToAWS(preSingedUrl: string, fileType: any): Promise<boolean> {
     try {
-      console.log("preSingedUrl 2", preSingedUrl);
-      console.log("selectedFile", this.selectedFile)
       const uploadResult = await fetch(preSingedUrl, {
         method: 'PUT',
         body: this.selectedFile,
