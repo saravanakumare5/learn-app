@@ -20,4 +20,19 @@ export class ProductService {
       throw new Error("Product failed to add");
     }
 }
+
+public async addProductList(productDetails: any) {
+  try {
+    let response = await this.http.postData("/api/product/add-product", productDetails);
+    if(response["status"] === "success") {
+      return response["message"];
+    } else {
+      throw new Error("Product added successfully");  
+    }
+  } catch (error) {
+    throw new Error("Product failed to add");
+  }
 }
+}
+
+

@@ -27,10 +27,10 @@ export class HttpService {
     })
   }
 
-  public getData(url: string): Promise<any> {
+  public getData(url: string, param: any): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
-        this.http.get(this.baseURL + url).subscribe((response: any) => {
+        this.http.get(this.baseURL + url, {params: param}).subscribe((response: any) => {
           resolve(response);
         }, (err) => {
           console.log("err", err);

@@ -1,0 +1,54 @@
+.grid-container {
+    position: absolute;
+    left: 11%; 
+    top: 15%;   
+    width: 88%;
+}
+
+.scrollable-table {
+    min-width: 100%;
+    overflow-x: auto; /* Horizontal scrolling */
+    overflow-y: hidden;
+}
+
+thead th {
+    cursor: pointer;
+    position: relative;
+    white-space: normal; /* Prevents text from wrapping */
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 1px;
+    padding-right: 75px;
+}
+
+.pagination-left {
+    cursor: pointer;
+    position: relative;
+    left: 1%;
+    img {
+        width: 30px;
+    height: 20px;
+    }
+    
+}
+
+.pagination-right {
+    cursor: pointer;
+    position: relative;
+    left: 95%;
+    img {
+        width: 30px;
+    height: 20px;
+    }
+}
+
+.search-box {
+    position: relative;
+    width: 15%;
+    left: 80%;
+    bottom: 30px; 
+    display: -webkit-box;
+    input {
+        margin-right: 15px;
+    }
+}

@@ -24,7 +24,7 @@ export class LoginService {
 
   public async validateUser() {
     try {
-     let response = await this.http.getData('/api/login/');
+     let response = await this.http.getData('/api/login/', {});
      if(response['status'] === "success") {
       return response;
      } else {

@@ -9,9 +9,4 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SidePanelComponent {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
-  public nextpage() {
-    console.log("");
-    this.router.navigate(['../product'], { relativeTo: this.activatedRoute });
-    // this.router.navigate(['../product'], { relativeTo: this.router.routerState.root });
-  }
 }

@@ -1,0 +1,37 @@
+<div class="grid-container">
+    <div class="search-box">
+        <input type="text" class="form-control" placeholder="search product name" [(ngModel)]="searchValue" (keyup.enter)="gridSearch()">
+        <button class="btn btn-primary" (click)="gridSearch()">Search</button>
+    </div>
+    <div class="scrollable-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" *ngFor="let header of productDetailHeader; let i = index"
+                        (click)="sortColumn(header)">{{header.field}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let productDetail of productDetails; let i = index">
+                    <td> {{productDetail["Name"]}} </td>
+                    <td> {{productDetail["Discreption"]}} </td>
+                    <td> {{productDetail["Quantity"]}} </td>
+                    <td> {{productDetail["Price"]}} </td>
+                    <td> {{productDetail["Discount"]}} </td>
+                    <td> {{productDetail["DiscountType"]}} </td>
+                    <td> {{productDetail["SKU"]}} </td>
+                    <td> {{productDetail["BarCode"]}} </td>
+                    <td> {{productDetail["Brand"]}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-container">
+        <span class="pagination-left" (click)="getNextData('previous')">
+            <img src="../../assets/grid-left-arrow.png" alt="">
+        </span>
+        <span class="pagination-right" (click)="getNextData('next')">
+            <img src="../../assets/grid-right-arrow.png" alt="">
+        </span>
+    </div>
+</div>

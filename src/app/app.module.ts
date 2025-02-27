@@ -18,6 +18,8 @@ import { LoaderComponent } from './loader/loader.component';
 
 import { AuthInterceptor } from './service/auth.interceptor';
 import { LoadingInterceptor } from './service/loading.interceptor';
+import { ReportComponent } from './report/report.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { LoadingInterceptor } from './service/loading.interceptor';
     HeaderComponent,
     ProductsComponent,
     AddProductComponent,
-    LoaderComponent
+    LoaderComponent,
+    ReportComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

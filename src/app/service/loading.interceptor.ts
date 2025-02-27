@@ -7,7 +7,6 @@ import { LoadingService } from "./loading.service";
 export class LoadingInterceptor implements HttpInterceptor {
     constructor(private loadingService: LoadingService){}
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log("loading interceptor is calling");
         this.loadingService.showLoader();
         return next.handle(req).pipe(
             finalize(() => {
